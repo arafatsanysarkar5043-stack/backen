@@ -1,0 +1,18 @@
+name: ZAFRIVA tamper monitor
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check database integrity
+        env:
+          API_URL: ${{ secrets.ZAFRIVA_API_URL }}
+          MONITOR_SECRET: ${{ secrets.ZAFRIVA_MONITOR_SECRET }}
+        run: |
+          test -n "$API_URL"
+          test -n "$MONITOR_SECRET"
+          curl --fail --silent --show-error -H "X-Monitor-Secret: $MONITOR_SECRET" "$API_URL/api/security/monitor" > monitor.json
+          cat monitor.json
