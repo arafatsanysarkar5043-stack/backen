@@ -11,7 +11,7 @@ const schema = new mongoose.Schema({
   active: { type: Boolean, default: true },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }
-}, { versionKey: true });
+}, { versionKey: false });
 schema.add({ security: { type: securitySchema, required: true } });
 schema.pre('save', function(next) { this.updatedAt = new Date(); next(); });
 export default mongoose.model('User', schema);
