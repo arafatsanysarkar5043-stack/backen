@@ -35,6 +35,6 @@ const schema = new mongoose.Schema({
   statusHistory: [{ status: String, at: { type: Date, default: Date.now }, by: mongoose.Schema.Types.ObjectId, note: String }],
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }
-}, { versionKey: true });
+}, { versionKey: false });
 schema.add({ security: { type: securitySchema, required: true } });
 export default mongoose.model('Order', schema);
